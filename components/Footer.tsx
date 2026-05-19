@@ -1,15 +1,14 @@
-import Link from "next/link";
 import Image from "next/image";
 import { sponsors } from "@/lib/sponsors";
 
 const quickLinks = [
-  { label: "Home", href: "/", live: true },
-  { label: "About / Leadership", href: "/about/leadership", live: true },
-  { label: "Contact", href: "/contact", live: true },
+  { label: "Home", href: "#hero", live: true },
+  { label: "About / Leadership", href: "#about", live: true },
+  { label: "Events", href: "#events", live: true },
+  { label: "Get Involved", href: "#get-involved", live: true },
+  { label: "Contact", href: "#contact", live: true },
   { label: "Ministries", href: "#", live: false },
-  { label: "Sports Events", href: "#", live: false },
   { label: "Mental Health", href: "#", live: false },
-  { label: "Get Involved", href: "#", live: false },
 ];
 
 export default function Footer() {
@@ -76,9 +75,9 @@ export default function Footer() {
               {quickLinks.map((link) => (
                 <li key={link.label}>
                   {link.live ? (
-                    <Link href={link.href} className="font-ui text-sm text-white/70 hover:text-gold-light transition-colors">
+                    <a href={link.href} className="font-ui text-sm text-white/70 hover:text-gold-light transition-colors">
                       {link.label}
-                    </Link>
+                    </a>
                   ) : (
                     <span className="font-ui text-sm text-white/30 cursor-default">{link.label}</span>
                   )}
@@ -106,12 +105,12 @@ export default function Footer() {
               ))}
             </ul>
             <div className="mt-6 pt-6 border-t border-white/10">
-              <Link
-                href="/get-involved/sponsor"
+              <a
+                href="#contact"
                 className="font-ui text-sm text-gold hover:text-gold-light transition-colors"
               >
                 Become a Sponsor →
-              </Link>
+              </a>
             </div>
           </div>
         </div>
