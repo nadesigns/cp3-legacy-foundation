@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest nextjs-project --typescript --tailwind --eslint --app --no-src-dir --import-alias \"@/*\")",
+      "Bash(npx create-next-app@latest \"/Users/nakoamare/CP3 Legacy\" --typescript --tailwind --eslint --app --no-src-dir --import-alias \"@/*\")",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir --import-alias \"@/*\")",
+      "Read(//private/tmp/**)",
+      "Bash(npx create-next-app@latest cp3-legacy --typescript --tailwind --eslint --app --no-src-dir --import-alias \"@/*\")",
+      "Bash(cp -r /tmp/cp3-legacy/. \"/Users/nakoamare/CP3 Legacy/\")",
+      "Bash(rm -rf /tmp/cp3-legacy)",
+      "Bash(sort -t/ -k5)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(ffmpeg -version)",
+      "Bash(ffprobe -v quiet -print_format json -show_streams \"/Users/nakoamare/CP3 Legacy/public/5101881-uhd_3840_2160_30fps.mp4\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); [print\\(s.get\\('codec_type'\\), s.get\\('codec_name'\\), s.get\\('width'\\), s.get\\('height'\\), s.get\\('duration'\\), s.get\\('r_frame_rate'\\)\\) for s in d['streams']]\")",
+      "Bash(ffmpeg -y -i '/Users/nakoamare/CP3 Legacy/public/5101881-uhd_3840_2160_30fps.mp4' -vf scale=1280:720:flags=lanczos -frames:v 1 -q:v 4 '/Users/nakoamare/CP3 Legacy/public/images/hero-poster.jpg')",
+      "Bash(ffmpeg -y -i '/Users/nakoamare/CP3 Legacy/public/5101881-uhd_3840_2160_30fps.mp4' -t 10 -vf scale=1280:720:flags=lanczos -c:v libx264 -crf 26 -preset slow -profile:v high -level 4.0 -movflags +faststart -an '/Users/nakoamare/CP3 Legacy/public/hero.mp4')",
+      "Bash(ffmpeg -y -i '/Users/nakoamare/CP3 Legacy/public/5101881-uhd_3840_2160_30fps.mp4' -t 10 -vf scale=1280:720:flags=lanczos -c:v libvpx-vp9 -cq 33 -b:v 0 -deadline good -cpu-used 2 -an '/Users/nakoamare/CP3 Legacy/public/hero.webm')",
+      "Bash(ffmpeg -y -i '/Users/nakoamare/CP3 Legacy/public/5101881-uhd_3840_2160_30fps.mp4' -t 10 -vf scale=1280:720:flags=lanczos -c:v libvpx-vp9 -b:v 800k -minrate 400k -maxrate 1200k -deadline good -cpu-used 2 -an '/Users/nakoamare/CP3 Legacy/public/hero.webm')",
+      "Bash(git --version)",
+      "Bash(brew install *)"
+    ],
+    "additionalDirectories": [
+      "/Users/nakoamare/nextjs-project"
+    ]
+  }
+}
