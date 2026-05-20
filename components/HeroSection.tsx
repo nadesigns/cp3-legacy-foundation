@@ -62,12 +62,31 @@ export default function HeroSection({
       {/* Extra darkening pass for text legibility */}
       <div className="absolute inset-0 bg-black/40" />
 
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 text-center pt-32 pb-20">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 text-center pt-40 pb-20">
+        <motion.div
+          custom={0}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          className="mb-6 flex justify-center"
+        >
+          <div className="rounded-full border border-white/18 bg-white/8 px-5 py-2 backdrop-blur-sm">
+            <p
+              className="text-[0.68rem] uppercase text-gold-light/90"
+              style={{
+                fontFamily: "var(--font-inter), Arial, sans-serif",
+                letterSpacing: "0.28em",
+              }}
+            >
+              Hampton Roads Family Foundation
+            </p>
+          </div>
+        </motion.div>
 
         {/* Logo centered above heading */}
         {showLogo && (
           <motion.div
-            custom={0}
+            custom={1}
             variants={fadeUp}
             initial="hidden"
             animate="visible"
@@ -86,7 +105,7 @@ export default function HeroSection({
 
         {/* Main heading — bold, impactful, sports-style */}
         <motion.h1
-          custom={showLogo ? 1 : 0}
+          custom={showLogo ? 2 : 1}
           variants={fadeUp}
           initial="hidden"
           animate="visible"
@@ -94,8 +113,8 @@ export default function HeroSection({
           style={{
             fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif",
             fontWeight: 700,
-            fontSize: "clamp(2.8rem, 7vw, 5.5rem)",
-            letterSpacing: "0.04em",
+            fontSize: "clamp(3.1rem, 7vw, 6rem)",
+            letterSpacing: "0.03em",
             textShadow: "0 2px 20px rgba(0,0,0,0.6)",
           }}
         >
@@ -104,7 +123,7 @@ export default function HeroSection({
 
         {/* Gold divider */}
         <motion.div
-          custom={showLogo ? 2 : 1}
+          custom={showLogo ? 3 : 2}
           variants={fadeUp}
           initial="hidden"
           animate="visible"
@@ -115,11 +134,11 @@ export default function HeroSection({
 
         {subheading && (
           <motion.p
-            custom={showLogo ? 3 : 2}
+            custom={showLogo ? 4 : 3}
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="text-white/85 text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed font-medium"
+            className="text-white/85 text-lg sm:text-xl max-w-3xl mx-auto mb-10 leading-relaxed font-medium"
             style={{ fontFamily: "var(--font-inter), Arial, sans-serif", textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}
           >
             {subheading}
@@ -128,7 +147,7 @@ export default function HeroSection({
 
         {(primaryCta || secondaryCta) && (
           <motion.div
-            custom={showLogo ? 4 : 3}
+            custom={showLogo ? 5 : 4}
             variants={fadeUp}
             initial="hidden"
             animate="visible"
@@ -157,7 +176,7 @@ export default function HeroSection({
 
         {scripture && (
           <motion.p
-            custom={showLogo ? 5 : 4}
+            custom={showLogo ? 6 : 5}
             variants={fadeUp}
             initial="hidden"
             animate="visible"
@@ -167,6 +186,35 @@ export default function HeroSection({
             {scripture}
           </motion.p>
         )}
+
+        <motion.div
+          custom={showLogo ? 7 : 6}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          className="mt-12 grid gap-3 sm:grid-cols-3"
+        >
+          {[
+            "Sports ministry and discipleship",
+            "Family support and outreach",
+            "Leadership rooted in faith",
+          ].map((item) => (
+            <div
+              key={item}
+              className="rounded-[1.4rem] border border-white/12 bg-white/7 px-4 py-4 backdrop-blur-sm"
+            >
+              <p
+                className="text-xs uppercase text-white/74"
+                style={{
+                  fontFamily: "var(--font-inter), Arial, sans-serif",
+                  letterSpacing: "0.18em",
+                }}
+              >
+                {item}
+              </p>
+            </div>
+          ))}
+        </motion.div>
       </div>
 
       {/* Bottom fade to content */}

@@ -34,7 +34,13 @@ body {
   font-family: var(--font-inter), Arial, sans-serif;
 }
 
-/* Offset anchor scroll for fixed navbar (79px bar + 3px accent line) */
+/* Offset anchor scroll for fixed navbar */
 section[id] {
-  scroll-margin-top: 82px;
+  scroll-margin-top: 138px;
+}
+
+@media (max-width: 1023px) {
+  section[id] {
+    scroll-margin-top: 104px;
+  }
 }

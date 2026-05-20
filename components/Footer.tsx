@@ -3,12 +3,13 @@ import { sponsors } from "@/lib/sponsors";
 
 const quickLinks = [
   { label: "Home", href: "#hero", live: true },
-  { label: "About / Leadership", href: "#about", live: true },
+  { label: "Our Story", href: "#story", live: true },
   { label: "Events", href: "#events", live: true },
+  { label: "Impact", href: "#impact", live: true },
+  { label: "Leadership", href: "#leadership", live: true },
+  { label: "Ministries", href: "#ministries", live: true },
   { label: "Get Involved", href: "#get-involved", live: true },
   { label: "Contact", href: "#contact", live: true },
-  { label: "Ministries", href: "#", live: false },
-  { label: "Mental Health", href: "#", live: false },
 ];
 
 export default function Footer() {
@@ -78,9 +79,7 @@ export default function Footer() {
                     <a href={link.href} className="font-ui text-sm text-white/70 hover:text-gold-light transition-colors">
                       {link.label}
                     </a>
-                  ) : (
-                    <span className="font-ui text-sm text-white/30 cursor-default">{link.label}</span>
-                  )}
+                  ) : <span className="font-ui text-sm text-white/30 cursor-default">{link.label}</span>}
                 </li>
               ))}
             </ul>
