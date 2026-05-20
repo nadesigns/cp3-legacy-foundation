@@ -2,69 +2,19 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { useState } from "react";
-
-const registrationSchema = z.object({
-  // Attendee
-  firstName: z.string().min(1, "First name required"),
-  middleName: z.string().optional(),
-  lastName: z.string().min(1, "Last name required"),
-  address: z.string().min(1, "Address required"),
-  email: z.string().email("Valid email required"),
-  phone: z.string().min(10, "Phone required"),
-  gender: z.enum(["male", "female"]).refine((v) => v !== undefined, { message: "Select gender" }),
-  birthdate: z.string().min(1, "Birthdate required"),
-  grade: z.enum(["4","5","6","7","8","9","10","11","12"]).refine((v) => v !== undefined, { message: "Select grade" }),
-  school: z.string().min(1, "School required"),
-  medicalNotes: z.string().optional(),
-
-  // Emergency contact
-  emergencyName: z.string().min(1, "Emergency contact name required"),
-  emergencyPhone: z.string().min(10, "Emergency phone required"),
-  guardianName: z.string().min(1, "Guardian name required"),
-  guardianCell: z.string().min(10, "Guardian cell required"),
-  guardianHomePhone: z.string().optional(),
-
-  // Shirt size
-  shirtSize: z.enum(["youth-s","youth-m","youth-l","adult-s","adult-m","adult-l","adult-xl","adult-2xl"]).refine((v) => v !== undefined, { message: "Select a shirt size" }),
-
-  // Transportation
-  transportMethod: z.string().min(1, "Select transportation method"),
-  authorizedPickup: z.string().optional(),
-  additionalInfo: z.string().optional(),
-
-  // Medical
-  insuranceCarrier: z.string().min(1, "Insurance carrier required"),
-  medicalConditions: z.string().optional(),
-  emergencyConsent: z.literal(true).refine((v) => v === true, { message: "You must agree to emergency treatment consent" }),
-
-  // Release
-  parentRelease: z.literal(true).refine((v) => v === true, { message: "You must agree to the parent/guardian release" }),
-  guardianSignature: z.string().min(1, "Signature required"),
-  signatureDate: z.string(),
-});
-
-type RegistrationData = z.infer<typeof registrationSchema>;
-
-const shirtSizes = [
-  { value: "youth-s", label: "Youth S" },
-  { value: "youth-m", label: "Youth M" },
-  { value: "youth-l", label: "Youth L" },
-  { value: "adult-s", label: "Adult S" },
-  { value: "adult-m", label: "Adult M" },
-  { value: "adult-l", label: "Adult L" },
-  { value: "adult-xl", label: "Adult XL" },
-  { value: "adult-2xl", label: "Adult 2XL" },
-];
+import {
+  baseballCampRegistrationSchema,
+  type BaseballCampRegistrationData,
+  campWaiverText,
+  shirtSizes,
+} from "@/lib/baseballCampRegistration";
 
 const fieldCls =
   "w-full px-4 py-3 rounded-lg border border-gray-light bg-white font-body text-sm text-navy placeholder-gray-mid focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition";
 
 const labelCls = "block font-ui text-sm font-semibold text-navy mb-1.5";
 const errorCls = "mt-1 font-ui text-xs text-red-accent";
-
-const waiverText = `In consideration of my child's participation in the 1Died4All Baseball Camp hosted by the CP3 Family Legacy Foundation, I hereby release, discharge, and covenant not to sue the CP3 Family Legacy Foundation, its officers, directors, employees, volunteers, agents, and representatives from any and all liability, claims, demands, actions, or causes of action whatsoever arising out of or related to any loss, damage, or injury, including death, that may be sustained by my child while participating in this camp. I acknowledge that participation involves physical activity and potential risk of injury. I have read this release and understand its terms.`;
 
 export default function RegistrationForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -77,12 +27,12 @@ export default function RegistrationForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegistrationData>({
-    resolver: zodResolver(registrationSchema),
+  } = useForm<BaseballCampRegistrationData>({
+    resolver: zodResolver(baseballCampRegistrationSchema),
     defaultValues: { signatureDate: today },
   });
 
-  const onSubmit = async (data: RegistrationData) => {
+  const onSubmit = async (data: BaseballCampRegistrationData) => {
     setSubmitting(true);
     setError("");
     try {
@@ -102,16 +52,16 @@ export default function RegistrationForm() {
 
   if (submitted) {
     return (
-      <div className="max-w-2xl mx-auto text-center py-16 px-4">
+      <div className="max-w-2xl mx-auto px-4 py-12 text-center sm:py-16">
         <div className="w-12 h-1 bg-gold mx-auto mb-6" />
         <h2 className="font-heading text-3xl text-navy uppercase tracking-wide mb-4">
           Registration Submitted!
         </h2>
         <p className="font-body text-gray-mid text-lg mb-6">
-          Thank you for registering for the 1Died4All Baseball Camp. You will receive a confirmation
-          email shortly.
+          Thank you for registering for the 1Died4All Baseball Camp. The camp team has received your
+          information.
         </p>
-        <div className="bg-navy rounded-xl p-6 text-left">
+        <div className="rounded-xl bg-navy p-5 text-left sm:p-6">
           <p className="font-heading text-gold uppercase tracking-widest text-sm mb-3">Camp Details</p>
           <p className="font-body text-white/80 text-sm">📅 June 16–18, 2026 · 9:00AM – 2:00PM</p>
           <p className="font-body text-white/80 text-sm mt-1">📍 Nansemond River High School</p>
@@ -123,7 +73,24 @@ export default function RegistrationForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="max-w-3xl mx-auto space-y-10 py-8 px-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-3xl space-y-8 px-3 py-6 sm:space-y-10 sm:px-4 sm:py-8">
+      <div className="rounded-[1.75rem] border border-gold/20 bg-gold/8 p-4 sm:p-5">
+        <p className="font-ui text-xs font-semibold uppercase tracking-[0.24em] text-gold mb-2">
+          Printable Option
+        </p>
+        <p className="font-body text-sm leading-relaxed text-navy/72">
+          Prefer the paper version? You can also use the official camp registration PDF.
+        </p>
+        <a
+          href="/baseball-camp-registration.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-3 inline-flex items-center gap-2 font-ui text-sm font-semibold text-navy underline decoration-gold decoration-2 underline-offset-4"
+        >
+          Open the registration PDF
+        </a>
+      </div>
+
       {/* Section: Attendee */}
       <section>
         <h3 className="font-heading text-xl text-navy uppercase tracking-widest border-b-2 border-gold pb-2 mb-6">
@@ -197,7 +164,12 @@ export default function RegistrationForm() {
         </div>
         <div>
           <label className={labelCls}>Medical Notes</label>
-          <textarea {...register("medicalNotes")} className={fieldCls} rows={3} placeholder="Any medical information the camp directors should know…" />
+          <textarea
+            {...register("medicalNotes")}
+            className={fieldCls}
+            rows={3}
+            placeholder="Any medical notes the camp directors should know"
+          />
         </div>
       </section>
 
@@ -241,11 +213,11 @@ export default function RegistrationForm() {
         <h3 className="font-heading text-xl text-navy uppercase tracking-widest border-b-2 border-gold pb-2 mb-6">
           T-Shirt Size
         </h3>
-        <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-8">
           {shirtSizes.map((s) => (
             <label key={s.value} className="flex flex-col items-center cursor-pointer">
               <input {...register("shirtSize")} type="radio" value={s.value} className="sr-only peer" />
-              <span className="w-full text-center py-2.5 px-1 border-2 border-gray-light rounded-lg text-xs font-heading font-bold text-gray-mid peer-checked:border-gold peer-checked:bg-gold peer-checked:text-navy hover:border-gold/50 transition-all cursor-pointer select-none">
+              <span className="w-full rounded-lg border-2 border-gray-light px-1 py-2.5 text-center text-xs font-heading font-bold text-gray-mid transition-all cursor-pointer select-none peer-checked:border-gold peer-checked:bg-gold peer-checked:text-navy hover:border-gold/50">
                 {s.label}
               </span>
             </label>
@@ -260,20 +232,12 @@ export default function RegistrationForm() {
           Transportation & Release
         </h3>
         <div className="mb-4">
-          <label className={labelCls}>Transportation Method *</label>
-          <div className="flex gap-4 flex-wrap">
-            {["Parent drop-off", "Bus", "Other"].map((method) => (
-              <label key={method} className="flex items-center gap-2 cursor-pointer">
-                <input
-                  {...register("transportMethod")}
-                  type="radio"
-                  value={method}
-                  className="accent-gold w-4 h-4"
-                />
-                <span className="font-body text-sm text-navy">{method}</span>
-              </label>
-            ))}
-          </div>
+          <label className={labelCls}>How will your camper be transported to and from camp? *</label>
+          <input
+            {...register("transportMethod")}
+            className={fieldCls}
+            placeholder="Parent drop-off and pickup, church van, carpool, etc."
+          />
           {errors.transportMethod && <p className={errorCls}>{errors.transportMethod.message}</p>}
         </div>
         <div className="mb-4">
@@ -301,6 +265,9 @@ export default function RegistrationForm() {
         <h3 className="font-heading text-xl text-navy uppercase tracking-widest border-b-2 border-gold pb-2 mb-6">
           Medical Information
         </h3>
+        <p className="font-body text-sm leading-relaxed text-gray-mid mb-4">
+          By registering, you certify that your child has been medically cleared for camp activity and has active medical insurance coverage.
+        </p>
         <div className="mb-4">
           <label className={labelCls}>Medical Insurance Carrier & Policy # *</label>
           <input
@@ -311,12 +278,12 @@ export default function RegistrationForm() {
           {errors.insuranceCarrier && <p className={errorCls}>{errors.insuranceCarrier.message}</p>}
         </div>
         <div className="mb-6">
-          <label className={labelCls}>Medical Conditions / History</label>
+          <label className={labelCls}>Medical Conditions / History / Treatment Protocol</label>
           <textarea
             {...register("medicalConditions")}
             className={fieldCls}
             rows={3}
-            placeholder="List any conditions or history requiring special attention…"
+            placeholder="List any allergies, asthma, diabetes, epilepsy, medication, inhaler, EpiPen, insulin, or other treatment protocol"
           />
         </div>
         <label className="flex items-start gap-3 cursor-pointer">
@@ -337,8 +304,8 @@ export default function RegistrationForm() {
         <h3 className="font-heading text-xl text-navy uppercase tracking-widest border-b-2 border-gold pb-2 mb-6">
           Parent / Guardian Release
         </h3>
-        <div className="bg-cream border border-gray-light rounded-lg p-5 mb-5 max-h-40 overflow-y-auto">
-          <p className="font-body text-sm text-gray-mid leading-relaxed">{waiverText}</p>
+        <div className="mb-5 max-h-40 overflow-y-auto rounded-lg border border-gray-light bg-cream p-4 sm:p-5">
+          <p className="font-body text-sm text-gray-mid leading-relaxed">{campWaiverText}</p>
         </div>
         <label className="flex items-start gap-3 cursor-pointer mb-6">
           <input
@@ -384,11 +351,11 @@ export default function RegistrationForm() {
           {error}
         </p>
       )}
-      <div className="text-center pt-4">
+      <div className="pt-4 text-center">
         <button
           type="submit"
           disabled={submitting}
-          className="px-12 py-4 bg-gold hover:bg-gold-light disabled:opacity-60 text-navy font-heading font-bold uppercase tracking-widest text-lg rounded-xl transition-all duration-200 hover:scale-105 disabled:hover:scale-100"
+          className="w-full rounded-xl bg-gold px-8 py-4 text-base font-heading font-bold uppercase tracking-[0.16em] text-navy transition-all duration-200 hover:bg-gold-light hover:scale-105 disabled:opacity-60 disabled:hover:scale-100 sm:w-auto sm:px-12 sm:text-lg"
         >
           {submitting ? "Submitting…" : "Submit Registration"}
         </button>

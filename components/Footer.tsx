@@ -3,12 +3,10 @@ import { sponsors } from "@/lib/sponsors";
 
 const quickLinks = [
   { label: "Home", href: "#hero", live: true },
-  { label: "Our Story", href: "#story", live: true },
-  { label: "Events", href: "#events", live: true },
-  { label: "Impact", href: "#impact", live: true },
-  { label: "Leadership", href: "#leadership", live: true },
-  { label: "Ministries", href: "#ministries", live: true },
+  { label: "Mission Statement", href: "#story", live: true },
+  { label: "Featured Events", href: "#events", live: true },
   { label: "Get Involved", href: "#get-involved", live: true },
+  { label: "Sponsors", href: "#sponsors", live: true },
   { label: "Contact", href: "#contact", live: true },
 ];
 

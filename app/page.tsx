@@ -1,15 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import HeroSection from "@/components/HeroSection";
 import EventCard from "@/components/EventCard";
 import SponsorGrid from "@/components/SponsorGrid";
-import ScriptureQuote from "@/components/ScriptureQuote";
-import LeaderCard from "@/components/LeaderCard";
+import RegistrationForm from "@/components/RegistrationForm";
 import { events } from "@/lib/events";
-import { ministries } from "@/lib/ministries";
-import { team } from "@/lib/team";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -32,43 +30,6 @@ const storyPillars = [
   {
     title: "Whole-Family Care",
     text: "The mission reaches beyond events by strengthening fathers, encouraging widows, and building healthier homes.",
-  },
-];
-
-const impactStats = [
-  { value: "5+", label: "Active ministry lanes" },
-  { value: "3", label: "Featured 2026 events" },
-  { value: "7", label: "Board and leadership voices" },
-  { value: "1", label: "Shared mission across every program" },
-];
-
-const trustPoints = [
-  {
-    title: "Executive-Level Leadership",
-    text: "Board members bring backgrounds in nonprofit leadership, counseling, college athletics, and community building.",
-  },
-  {
-    title: "Programs Families Recognize",
-    text: "From 1Died4All sports ministry to the Fatherhood Award and widow outreach, every initiative has a distinct purpose.",
-  },
-  {
-    title: "Built for Partnerships",
-    text: "The foundation is structured to work with churches, sponsors, mentors, and volunteers who want to make a visible impact.",
-  },
-];
-
-const testimonials = [
-  {
-    quote: "CP3 creates the kind of environment where faith, discipline, and family support are all visible at the same time.",
-    attribution: "Community Partner Perspective",
-  },
-  {
-    quote: "This foundation feels personal. It does not just host events. It stays focused on building people.",
-    attribution: "Volunteer Perspective",
-  },
-  {
-    quote: "The mission is clear from the first impression: serve families well, lead with character, and keep Christ at the center.",
-    attribution: "Supporter Perspective",
   },
 ];
 
@@ -97,6 +58,7 @@ const Eyebrow = ({ children, light = false }: { children: React.ReactNode; light
 
 export default function HomePage() {
   const featuredEvents = events.filter((event) => event.status === "upcoming").slice(0, 3);
+  const baseballCamp = events.find((event) => event.slug === "baseball-camp");
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [contactStatus, setContactStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
@@ -139,9 +101,9 @@ export default function HomePage() {
         />
       </section>
 
-      <section className="relative overflow-hidden bg-navy py-5">
+      <section className="relative overflow-hidden bg-navy py-4 sm:py-5">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent" />
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-8 gap-y-3 px-4 text-center">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-6 gap-y-2 px-4 text-center sm:gap-x-8 sm:gap-y-3">
           {[
             "Faith-Based Family Foundation",
             "Sports Ministry and Outreach",
@@ -149,7 +111,7 @@ export default function HomePage() {
           ].map((item) => (
             <p
               key={item}
-              className="text-sm uppercase tracking-[0.25em] text-gold-light sm:text-base"
+              className="text-xs uppercase tracking-[0.2em] text-gold-light sm:text-base sm:tracking-[0.25em]"
               style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", fontWeight: 500 }}
             >
               {item}
@@ -158,55 +120,35 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="story" className="relative overflow-hidden bg-[linear-gradient(180deg,#f4f1ec_0%,#f8f5f0_45%,#ffffff_100%)] py-24">
+      <section id="story" className="relative overflow-hidden bg-[linear-gradient(180deg,#f4f1ec_0%,#f8f5f0_45%,#ffffff_100%)] py-18 sm:py-24">
         <div className="absolute left-0 top-24 h-56 w-56 rounded-full bg-gold/10 blur-3xl" />
         <div className="absolute right-0 top-0 h-80 w-80 rounded-full bg-navy/6 blur-3xl" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div className="mx-auto max-w-4xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
+              className="text-center"
             >
-              <Eyebrow>Our Story</Eyebrow>
-              <H2>A Refined One-Page Home for a Mission-Driven Foundation</H2>
+              <Eyebrow>Mission Statement</Eyebrow>
+              <H2>Faith, Family, and Mentorship That Carry Beyond the Field</H2>
               <p
-                className="mb-6 max-w-2xl text-lg leading-relaxed text-navy/72"
+                className="mx-auto mb-6 max-w-3xl text-lg leading-relaxed text-navy/72"
                 style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
               >
                 CP3 Family Legacy Foundation exists to connect families through faith, mentorship, athletics, and practical support. The work is not limited to events. It is an ongoing commitment to discipleship, leadership, and community care.
               </p>
               <p
-                className="max-w-2xl text-base leading-relaxed text-navy/62"
+                className="mx-auto mb-10 max-w-3xl text-base leading-relaxed text-navy/62"
                 style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
               >
-                This page now reads more like a premium nonprofit landing experience: stronger hierarchy, clearer story flow, and dedicated sections that help visitors understand the mission, trust the leadership, and know exactly where to engage.
+                From youth camps to ongoing outreach, the goal is to create spaces where young people are encouraged, families are supported, and Christ remains at the center of every conversation.
               </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55 }}
-              className="rounded-[2rem] border border-navy/10 bg-white p-8 shadow-[0_30px_80px_rgba(13,27,62,0.1)]"
-            >
-              <p
-                className="mb-3 text-[0.7rem] uppercase tracking-[0.3em] text-gold"
-                style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
-              >
-                Mission Focus
-              </p>
-              <h3
-                className="mb-5 text-3xl uppercase text-navy"
-                style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.06em" }}
-              >
-                Built Like a First-Class Ministry Brand
-              </h3>
-              <div className="space-y-4">
+              <div className="grid gap-4 text-left md:grid-cols-3">
                 {storyPillars.map((pillar) => (
-                  <div key={pillar.title} className="rounded-2xl bg-cream px-5 py-4">
+                  <div key={pillar.title} className="rounded-2xl border border-navy/10 bg-white/80 px-4 py-4 shadow-[0_10px_30px_rgba(13,27,62,0.05)] sm:px-5">
                     <p
                       className="mb-1 text-sm uppercase tracking-[0.16em] text-navy"
                       style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", fontWeight: 600 }}
@@ -221,34 +163,103 @@ export default function HomePage() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {impactStats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                custom={index}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-60px" }}
-                className="rounded-[1.75rem] border border-navy/10 bg-white px-6 py-7 shadow-[0_20px_50px_rgba(13,27,62,0.08)]"
-              >
-                <p
-                  className="text-4xl uppercase text-navy"
-                  style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.04em" }}
-                >
-                  {stat.value}
-                </p>
-                <p className="mt-2 text-sm uppercase tracking-[0.18em] text-gray-mid" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
-                  {stat.label}
-                </p>
-              </motion.div>
-            ))}
+      <section id="camp-registration" className="bg-white py-18 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-10 text-center sm:mb-14"
+          >
+            <Eyebrow>Camp Registration</Eyebrow>
+            <H2>Sign Up for the 1Died4All Baseball Camp</H2>
+            <div className="mx-auto mb-5 h-1 w-16 bg-gold" />
+            <p
+              className="mx-auto max-w-3xl text-base leading-relaxed text-gray-mid"
+              style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
+            >
+              Complete the registration below or use the printable flyer PDF. The online form follows the same registration questions shown on the official camp form.
+            </p>
+          </motion.div>
+
+          <div className="grid gap-6 sm:gap-8 xl:grid-cols-[0.88fr_1.12fr] xl:items-start">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45 }}
+              className="xl:sticky xl:top-28"
+            >
+              <div className="overflow-hidden rounded-[2rem] border border-navy/10 bg-cream shadow-[0_24px_60px_rgba(13,27,62,0.08)]">
+                <div className="relative aspect-[4/5] bg-navy/5">
+                  <Image
+                    src="/images/baseball-camp-flyer.png"
+                    alt="Official baseball camp flyer"
+                    fill
+                    className="object-cover object-top"
+                    sizes="(min-width: 1280px) 32vw, 100vw"
+                  />
+                </div>
+                <div className="p-5 sm:p-7">
+                  <p
+                    className="mb-2 text-[0.72rem] uppercase tracking-[0.32em] text-gold"
+                    style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
+                  >
+                    Camp Snapshot
+                  </p>
+                  <h3
+                    className="mb-4 text-2xl uppercase text-navy"
+                    style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.06em" }}
+                  >
+                    Free Admission. Lunch Provided. All Skill Levels Welcome.
+                  </h3>
+                  <div className="space-y-3 text-sm text-navy/72" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
+                    <p><strong>Date:</strong> {baseballCamp?.date}</p>
+                    <p><strong>Time:</strong> {baseballCamp?.time}</p>
+                    <p><strong>Location:</strong> {baseballCamp?.location}</p>
+                    <p><strong>Address:</strong> {baseballCamp?.address}</p>
+                    <p><strong>Who it&apos;s for:</strong> Boys ages 10 to 16</p>
+                  </div>
+                  <div className="mt-6 flex flex-col gap-3 sm:flex-row xl:flex-col">
+                    <a
+                      href="/baseball-camp-registration.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center rounded-full bg-navy px-5 py-3 text-center text-sm font-bold uppercase text-white transition-colors hover:bg-navy-mid sm:px-6"
+                      style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.08em" }}
+                    >
+                      Open Printable PDF
+                    </a>
+                    <a
+                      href="tel:757-535-9539"
+                      className="inline-flex items-center justify-center rounded-full border border-navy/15 px-5 py-3 text-center text-sm font-bold uppercase text-navy transition-colors hover:border-gold hover:text-gold sm:px-6"
+                      style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.08em" }}
+                    >
+                      Questions? Call 757-535-9539
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: 0.05 }}
+              className="rounded-[2rem] border border-navy/10 bg-cream/60 px-2 py-2 shadow-[0_24px_60px_rgba(13,27,62,0.08)] sm:px-5 sm:py-5"
+            >
+              <RegistrationForm />
+            </motion.div>
           </div>
         </div>
       </section>
 
-      <section id="events" className="bg-cream py-20">
+      <section id="events" className="bg-cream py-18 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -258,7 +269,7 @@ export default function HomePage() {
             className="mb-12 text-center"
           >
             <Eyebrow>On the Field</Eyebrow>
-            <H2>Upcoming Events</H2>
+            <H2>Featured Events</H2>
             <div className="mx-auto h-1 w-16 bg-gold" />
           </motion.div>
 
@@ -280,227 +291,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="ministries" className="relative overflow-hidden bg-navy py-24">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(201,162,39,0.22),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(255,255,255,0.08),transparent_22%)]" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mb-12 text-center"
-          >
-            <Eyebrow light>What We Do</Eyebrow>
-            <H2 light>Our Ministries</H2>
-            <div className="mx-auto h-1 w-16 bg-gold" />
-          </motion.div>
-
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {ministries.map((ministry, index) => (
-              <motion.div
-                key={ministry.slug}
-                custom={index}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-60px" }}
-                className="rounded-[1.8rem] border border-white/10 bg-white/6 p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-sm"
-              >
-                <div className="mb-5 flex items-center justify-between">
-                  <div className="h-[3px] w-10 bg-gold" />
-                  <span
-                    className="text-[0.64rem] uppercase tracking-[0.24em] text-white/42"
-                    style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
-                  >
-                    Ministry
-                  </span>
-                </div>
-                <h3
-                  className="mb-3 text-xl uppercase text-white"
-                  style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.06em" }}
-                >
-                  {ministry.title}
-                </h3>
-                <p className="mb-4 text-sm leading-relaxed text-white/74" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
-                  {ministry.description}
-                </p>
-                <ul className="space-y-2">
-                  {ministry.details.slice(0, 3).map((detail) => (
-                    <li key={detail} className="flex items-start gap-2 text-sm text-white/60" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
-                      <span className="mt-1 h-1.5 w-1.5 rounded-full bg-gold shrink-0" />
-                      <span>{detail}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <div className="bg-cream">
-        <ScriptureQuote
-          verse="For the love of Christ compels us, because we judge thus: that if One died for all, then all died."
-          reference="2 Corinthians 5:14"
-        />
-      </div>
-
-      <section id="impact" className="bg-white py-24">
+      <section id="get-involved" className="bg-navy py-18 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="mb-12 text-center"
-          >
-            <Eyebrow>Why It Connects</Eyebrow>
-            <H2>Trust, Leadership, and Visible Impact</H2>
-            <div className="mx-auto mb-5 h-1 w-16 bg-gold" />
-            <p
-              className="mx-auto max-w-2xl text-base leading-relaxed text-gray-mid"
-              style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
-            >
-              Premium nonprofit sites earn trust by making the organization feel established, human, and clear. This section does that with proof points, leadership visibility, and concise social trust content.
-            </p>
-          </motion.div>
-
-          <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-            <div className="space-y-5">
-              {trustPoints.map((point, index) => (
-                <motion.div
-                  key={point.title}
-                  custom={index}
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="rounded-[1.75rem] border border-navy/10 bg-cream p-7"
-                >
-                  <p
-                    className="mb-2 text-sm uppercase tracking-[0.16em] text-navy"
-                    style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", fontWeight: 600 }}
-                  >
-                    {point.title}
-                  </p>
-                  <p className="text-sm leading-relaxed text-navy/66" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
-                    {point.text}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="rounded-[2rem] bg-navy p-8 text-white shadow-[0_32px_80px_rgba(13,27,62,0.18)]">
-              <p
-                className="mb-3 text-[0.7rem] uppercase tracking-[0.3em] text-gold-light/90"
-                style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
-              >
-                Community Voice
-              </p>
-              <div className="space-y-4">
-                {testimonials.map((testimonial, index) => (
-                  <motion.blockquote
-                    key={testimonial.attribution}
-                    custom={index}
-                    variants={fadeUp}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5"
-                  >
-                    <p className="text-base leading-relaxed text-white/82" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
-                      “{testimonial.quote}”
-                    </p>
-                    <footer
-                      className="mt-3 text-[0.7rem] uppercase tracking-[0.22em] text-gold-light/78"
-                      style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
-                    >
-                      {testimonial.attribution}
-                    </footer>
-                  </motion.blockquote>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15, duration: 0.45 }}
-            className="mt-14 rounded-[2rem] border border-navy/10 bg-[linear-gradient(135deg,#0d1b3e_0%,#14285c_68%,#c9a227_180%)] px-8 py-10 text-center shadow-[0_28px_60px_rgba(13,27,62,0.16)]"
-          >
-            <p
-              className="mb-3 text-[0.72rem] uppercase tracking-[0.32em] text-gold-light/82"
-              style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
-            >
-              Ready to Serve With Us
-            </p>
-            <h3
-              className="mx-auto mb-4 max-w-3xl text-3xl uppercase text-white"
-              style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.06em" }}
-            >
-              A Stronger Site Should Lead Visitors to a Stronger Next Step
-            </h3>
-            <p className="mx-auto max-w-2xl text-white/72" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
-              Whether someone wants to volunteer, sponsor an event, or ask a question, the path forward should feel immediate and well organized.
-            </p>
-            <div className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <a
-                href="#get-involved"
-                className="inline-flex items-center rounded-full bg-gold px-7 py-3 text-sm font-bold uppercase text-navy transition-colors hover:bg-gold-light"
-                style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.1em" }}
-              >
-                Get Involved
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center rounded-full border border-white/30 px-7 py-3 text-sm font-bold uppercase text-white transition-colors hover:border-gold hover:text-gold"
-                style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.1em" }}
-              >
-                Contact the Foundation
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section id="leadership" className="bg-white pb-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mb-12 text-center"
-          >
-            <Eyebrow>The Team</Eyebrow>
-            <H2>Meet Our Leadership</H2>
-            <div className="mx-auto mb-4 h-1 w-16 bg-gold" />
-            <p
-              className="mx-auto max-w-2xl text-base leading-relaxed text-gray-mid"
-              style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
-            >
-              Dedicated leaders of faith committed to family, purpose, athletic mentorship, and community impact across Hampton Roads.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {team.map((member, index) => (
-              <LeaderCard key={member.slug} member={member} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="get-involved" className="bg-navy py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="mb-14 text-center"
+            className="mb-10 text-center sm:mb-14"
           >
             <Eyebrow light>Join the Mission</Eyebrow>
             <H2 light>Get Involved</H2>
@@ -509,7 +307,7 @@ export default function HomePage() {
               className="mx-auto max-w-xl text-base leading-relaxed text-white/60"
               style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
             >
-              Step into the mission as a volunteer, donor, or sponsor. Each option below now reads as a clearer conversion point for a one-page site.
+              Step into the mission as a volunteer, donor, or sponsor, with clear ways to support the foundation&apos;s work.
             </p>
           </motion.div>
 
@@ -529,7 +327,7 @@ export default function HomePage() {
               >
                 <a
                   href="#contact"
-                  className="group flex h-full flex-col rounded-[1.8rem] border border-white/10 bg-white/6 p-8 text-center transition-all duration-300 hover:-translate-y-1 hover:bg-gold hover:text-navy"
+                  className="group flex h-full flex-col rounded-[1.8rem] border border-white/10 bg-white/6 p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:bg-gold hover:text-navy sm:p-8"
                 >
                   <div className="mb-5 h-[3px] w-12 bg-gold transition-colors group-hover:bg-navy" />
                   <h3
@@ -561,14 +359,14 @@ export default function HomePage() {
         <SponsorGrid />
       </section>
 
-      <section id="contact" className="bg-cream py-20">
+      <section id="contact" className="bg-cream py-18 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="mb-14 text-center"
+            className="mb-10 text-center sm:mb-14"
           >
             <Eyebrow>Reach Out</Eyebrow>
             <H2>Contact Us</H2>
@@ -588,7 +386,7 @@ export default function HomePage() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="rounded-[1.8rem] bg-navy p-8 text-center shadow-[0_24px_54px_rgba(13,27,62,0.14)]"
+              className="rounded-[1.8rem] bg-navy p-6 text-center shadow-[0_24px_54px_rgba(13,27,62,0.14)] sm:p-8"
               >
                 <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-gold/30 bg-gold/15">
                   <span
@@ -629,7 +427,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-10 lg:grid-cols-5">
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-10">
             <div className="flex flex-col justify-center lg:col-span-2">
               <h3
                 className="mb-3 text-navy uppercase"
@@ -640,11 +438,12 @@ export default function HomePage() {
                   letterSpacing: "0.08em",
                 }}
               >
-                Follow the Work
+                Follow Us!
+        
               </h3>
               <div className="mb-5 h-[3px] w-10 bg-gold" />
               <p className="mb-4 text-sm text-gray-mid" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
-                Find the latest stories, event updates, and field highlights from 1Died4All on Facebook and Instagram.
+                Find the latest stories, event updates, and field highlights from us on Facebook and Instagram.
               </p>
               <div className="flex flex-wrap gap-4">
                 <a
@@ -693,7 +492,7 @@ export default function HomePage() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleContact} className="space-y-4 rounded-[2rem] bg-white p-7 shadow-[0_28px_64px_rgba(13,27,62,0.08)]">
+                <form onSubmit={handleContact} className="space-y-4 rounded-[2rem] bg-white p-5 shadow-[0_28px_64px_rgba(13,27,62,0.08)] sm:p-7">
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
                       <label className={labelCls} style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>

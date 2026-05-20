@@ -6,11 +6,10 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const navLinks = [
   { label: "Home", href: "#hero" },
-  { label: "Our Story", href: "#story" },
-  { label: "Ministries", href: "#ministries" },
-  { label: "Events", href: "#events" },
-  { label: "Impact", href: "#impact" },
+  { label: "Mission Statement", href: "#story" },
+  { label: "Featured Events", href: "#events" },
   { label: "Get Involved", href: "#get-involved" },
+  { label: "Sponsors", href: "#sponsors" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -81,13 +80,13 @@ export default function Navbar() {
           </div>
         </a>
 
-        <div className="hidden items-center gap-2 lg:flex">
-          <ul className="flex items-center rounded-full border border-white/12 bg-white/6 px-3 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+        <div className="hidden items-center gap-6 lg:flex">
+          <ul className="flex items-center">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="rounded-full px-4 py-2 text-[0.82rem] font-medium text-white/84 transition-all duration-200 hover:bg-white/8 hover:text-white"
+                  className="px-3 py-2 text-[0.82rem] font-medium text-white/84 transition-colors duration-200 hover:text-white"
                   style={{ fontFamily: bodyFont, letterSpacing: "0.03em" }}
                 >
                   {link.label}
@@ -134,18 +133,6 @@ export default function Navbar() {
             className="border-t border-white/10 bg-navy/98 lg:hidden"
           >
             <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6">
-              <div className="mb-5 rounded-3xl border border-white/10 bg-white/5 p-5">
-                <p
-                  className="mb-2 text-[0.68rem] uppercase tracking-[0.3em] text-gold-light/80"
-                  style={{ fontFamily: bodyFont }}
-                >
-                  One-Page Navigation
-                </p>
-                <p className="text-sm leading-relaxed text-white/72" style={{ fontFamily: bodyFont }}>
-                  Explore the foundation, upcoming events, ministry work, and ways to serve from one continuous page.
-                </p>
-              </div>
-
               <ul className="space-y-2">
                 {navLinks.map((link) => (
                   <li key={link.href}>
