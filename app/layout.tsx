@@ -17,15 +17,35 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://cp3legacyfoundation.com"),
   title: "CP3 Family Legacy Foundation",
   description:
     "Connecting People, Potential & Purpose in Families — faith-based nonprofit in Hampton Roads / Suffolk, VA.",
+  icons: {
+    icon: "/images/cp3logo.png",
+    shortcut: "/images/cp3logo.png",
+    apple: "/images/cp3logo.png",
+  },
   openGraph: {
     title: "CP3 Family Legacy Foundation",
     description: "Connecting People, Potential & Purpose in Families",
     url: "https://cp3legacyfoundation.com",
     siteName: "CP3 Family Legacy Foundation",
     type: "website",
+    images: [
+      {
+        url: "/images/cp3logo.png",
+        width: 1536,
+        height: 1024,
+        alt: "CP3 Family Legacy Foundation logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CP3 Family Legacy Foundation",
+    description: "Connecting People, Potential & Purpose in Families",
+    images: ["/images/cp3logo.png"],
   },
 };
 
