@@ -47,37 +47,20 @@ export default function Navbar() {
             <a href="tel:7572175427" className="transition-colors hover:text-gold-light">
               Call 757.217.5427
             </a>
-            <a href="#contact" className="transition-colors hover:text-gold-light">
-              Prayer and Partnership Inquiries
-            </a>
           </div>
         </div>
       </div>
 
-      <nav className="mx-auto flex h-[86px] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-6">
-        <a href="#hero" onClick={closeMenu} className="flex items-center gap-3">
+      <nav className="mx-auto flex h-[82px] max-w-7xl items-center justify-between px-4 sm:h-[86px] sm:px-6 lg:px-6">
+        <a href="#hero" onClick={closeMenu} className="flex items-center">
           <Image
             src="/images/cp3logo.png"
             alt="CP3 Family Legacy Foundation"
-            width={92}
-            height={92}
-            className="h-[72px] w-[72px] object-contain sm:h-[84px] sm:w-[84px]"
+            width={120}
+            height={120}
+            className="h-[88px] w-[88px] object-contain sm:h-[104px] sm:w-[104px]"
             priority
           />
-          <div className="hidden min-[480px]:block">
-            <p
-              className="text-[0.7rem] uppercase tracking-[0.34em] text-gold-light/85"
-              style={{ fontFamily: bodyFont }}
-            >
-              Faith • Family • Legacy
-            </p>
-            <p
-              className="text-lg uppercase leading-none text-white sm:text-xl"
-              style={{ fontFamily: displayFont, letterSpacing: "0.1em", fontWeight: 600 }}
-            >
-              CP3 Family Legacy
-            </p>
-          </div>
         </a>
 
         <div className="hidden items-center gap-6 lg:flex">

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion, type Variants } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import HeroSection from "@/components/HeroSection";
 import EventCard from "@/components/EventCard";
 import SponsorGrid from "@/components/SponsorGrid";
@@ -57,10 +57,13 @@ const Eyebrow = ({ children, light = false }: { children: React.ReactNode; light
 );
 
 export default function HomePage() {
-  const featuredEvents = events.filter((event) => event.status === "upcoming").slice(0, 3);
+  const featuredEvents = events.filter((event) => event.status === "upcoming").slice(0, 4);
   const baseballCamp = events.find((event) => event.slug === "baseball-camp");
+  const campAddress = baseballCamp?.address ?? "3301 Nansemond Parkway, Suffolk, VA 23434";
+  const campMapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(campAddress)}`;
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [contactStatus, setContactStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [registrationPopupOpen, setRegistrationPopupOpen] = useState(false);
 
   const handleContact = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,9 +96,8 @@ export default function HomePage() {
         <HeroSection
           heading="Connecting People, Potential & Purpose in Families"
           subheading="A faith-based foundation serving Hampton Roads and Suffolk, Virginia through sports ministry, mentorship, family support, and gospel-centered community outreach."
-          primaryCta={{ label: "Get Involved", href: "#get-involved" }}
+          primaryCta={{ label: "Camp Registration", href: "#camp-registration" }}
           secondaryCta={{ label: "Explore the Mission", href: "#story" }}
-          scripture="For the love of Christ compels us — 2 Corinthians 5:14"
           bgVideo
           showLogo
         />
@@ -197,7 +199,7 @@ export default function HomePage() {
               <div className="overflow-hidden rounded-[2rem] border border-navy/10 bg-cream shadow-[0_24px_60px_rgba(13,27,62,0.08)]">
                 <div className="relative aspect-[4/5] bg-navy/5">
                   <Image
-                    src="/images/baseball-camp-flyer.png"
+                    src="/images/NewCP3Flyer.PNG"
                     alt="Official baseball camp flyer"
                     fill
                     className="object-cover object-top"
@@ -221,7 +223,17 @@ export default function HomePage() {
                     <p><strong>Date:</strong> {baseballCamp?.date}</p>
                     <p><strong>Time:</strong> {baseballCamp?.time}</p>
                     <p><strong>Location:</strong> {baseballCamp?.location}</p>
-                    <p><strong>Address:</strong> {baseballCamp?.address}</p>
+                    <p>
+                      <strong>Address:</strong>{" "}
+                      <a
+                        href={campMapsHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-navy underline decoration-gold decoration-2 underline-offset-4 transition-colors hover:text-gold"
+                      >
+                        {campAddress}
+                      </a>
+                    </p>
                     <p><strong>Who it&apos;s for:</strong> Boys ages 10 to 16</p>
                   </div>
                   <div className="mt-6 flex flex-col gap-3 sm:flex-row xl:flex-col">
@@ -253,11 +265,70 @@ export default function HomePage() {
               transition={{ duration: 0.45, delay: 0.05 }}
               className="rounded-[2rem] border border-navy/10 bg-cream/60 px-2 py-2 shadow-[0_24px_60px_rgba(13,27,62,0.08)] sm:px-5 sm:py-5"
             >
+              <div className="flex items-center justify-end px-1 py-2">
+                <button
+                  type="button"
+                  onClick={() => setRegistrationPopupOpen(true)}
+                  className="inline-flex items-center gap-2 rounded-full border border-navy/12 bg-navy px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gold hover:text-navy"
+                  aria-label="Open registration form in popup"
+                >
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 3H5a2 2 0 00-2 2v3m16 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M5 16v3a2 2 0 002 2h3" />
+                  </svg>
+                  <span style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>Open popup</span>
+                </button>
+              </div>
               <RegistrationForm />
             </motion.div>
           </div>
         </div>
       </section>
+
+      <AnimatePresence>
+        {registrationPopupOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[70] bg-navy/70 backdrop-blur-sm"
+          >
+            <div className="flex min-h-full items-start justify-center overflow-y-auto px-3 py-8 sm:px-6 sm:py-12">
+              <motion.div
+                initial={{ opacity: 0, y: 28, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 24, scale: 0.98 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
+                className="relative w-full max-w-5xl rounded-[2rem] border border-white/10 bg-cream shadow-[0_30px_90px_rgba(13,27,62,0.28)]"
+              >
+                <div className="sticky top-0 z-10 flex items-center justify-between rounded-t-[2rem] border-b border-navy/10 bg-cream/95 px-5 py-4 backdrop-blur">
+                  <div>
+                    <p
+                      className="text-[0.68rem] uppercase tracking-[0.28em] text-gold"
+                      style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
+                    >
+                      Camp Registration
+                    </p>
+                    <p className="text-sm text-navy/72" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
+                      Sign Up for the 1Died4All Baseball Camp
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setRegistrationPopupOpen(false)}
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-navy/12 bg-white text-navy transition-colors hover:bg-navy hover:text-white"
+                    aria-label="Close registration popup"
+                  >
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                <RegistrationForm />
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <section id="events" className="bg-cream py-18 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -273,7 +344,7 @@ export default function HomePage() {
             <div className="mx-auto h-1 w-16 bg-gold" />
           </motion.div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
             {featuredEvents.map((event, index) => (
               <EventCard key={event.slug} event={event} index={index} />
             ))}

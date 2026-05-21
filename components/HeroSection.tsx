@@ -62,7 +62,7 @@ export default function HeroSection({
       {/* Extra darkening pass for text legibility */}
       <div className="absolute inset-0 bg-black/40" />
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 text-center pt-32 pb-16 sm:pt-40 sm:pb-20">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-4 pt-28 pb-14 text-center sm:px-6 sm:pt-34 sm:pb-18">
         {/* Logo centered above heading */}
         {showLogo && (
           <motion.div
@@ -70,14 +70,14 @@ export default function HeroSection({
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="mb-6 flex justify-center sm:mb-8"
+            className="mb-5 flex justify-center sm:mb-6"
           >
             <Image
               src="/images/cp3logo.png"
               alt="CP3 Family Legacy Foundation"
               width={160}
               height={160}
-              className="h-28 w-28 object-contain drop-shadow-2xl sm:h-40 sm:w-40"
+              className="h-24 w-24 object-contain drop-shadow-2xl sm:h-32 sm:w-32"
               priority
             />
           </motion.div>
@@ -89,12 +89,12 @@ export default function HeroSection({
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mb-5 uppercase leading-none text-white drop-shadow-lg sm:mb-6"
+          className="mb-4 uppercase leading-none text-white drop-shadow-lg sm:mb-5"
           style={{
             fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif",
             fontWeight: 700,
-            fontSize: "clamp(2.45rem, 9vw, 6rem)",
-            letterSpacing: "0.03em",
+            fontSize: "clamp(2.1rem, 7.6vw, 5.2rem)",
+            letterSpacing: "0.02em",
             textShadow: "0 2px 20px rgba(0,0,0,0.6)",
           }}
         >
@@ -107,9 +107,9 @@ export default function HeroSection({
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="flex justify-center mb-6"
+          className="mb-5 flex justify-center sm:mb-6"
         >
-          <div className="w-24 h-1 bg-gold" />
+          <div className="h-1 w-20 bg-gold sm:w-24" />
         </motion.div>
 
         {subheading && (
@@ -118,7 +118,7 @@ export default function HeroSection({
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="mx-auto mb-8 max-w-3xl text-base leading-relaxed font-medium text-white/85 sm:mb-10 sm:text-xl"
+            className="mx-auto mb-7 max-w-2xl text-[0.95rem] leading-relaxed font-medium text-white/85 sm:mb-8 sm:text-lg"
             style={{ fontFamily: "var(--font-inter), Arial, sans-serif", textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}
           >
             {subheading}
@@ -136,7 +136,7 @@ export default function HeroSection({
             {primaryCta && (
               <Link
                 href={primaryCta.href}
-                className="w-full rounded px-8 py-4 text-center text-sm font-bold uppercase tracking-[0.12em] text-navy shadow-lg transition-all duration-200 hover:scale-105 bg-gold hover:bg-gold-light sm:w-auto sm:px-10"
+                className="w-full rounded px-8 py-3.5 text-center text-[0.78rem] font-bold uppercase tracking-[0.11em] text-navy shadow-lg transition-all duration-200 hover:scale-105 bg-gold hover:bg-gold-light sm:w-auto sm:px-9"
                 style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif" }}
               >
                 {primaryCta.label}
@@ -145,7 +145,7 @@ export default function HeroSection({
             {secondaryCta && (
               <Link
                 href={secondaryCta.href}
-                className="w-full rounded border-2 border-white/80 px-8 py-4 text-center text-sm font-bold uppercase tracking-[0.12em] text-white transition-all duration-200 hover:border-gold hover:text-gold sm:w-auto sm:px-10"
+                className="w-full rounded border-2 border-white/80 px-8 py-3.5 text-center text-[0.78rem] font-bold uppercase tracking-[0.11em] text-white transition-all duration-200 hover:border-gold hover:text-gold sm:w-auto sm:px-9"
                 style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif" }}
               >
                 {secondaryCta.label}
@@ -160,41 +160,12 @@ export default function HeroSection({
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="mt-10 text-xs uppercase text-white/50 sm:mt-12 sm:text-sm"
-            style={{ fontFamily: "var(--font-inter), Arial, sans-serif", letterSpacing: "0.16em" }}
+            className="mt-8 text-[0.68rem] uppercase text-white/50 sm:mt-10 sm:text-xs"
+            style={{ fontFamily: "var(--font-inter), Arial, sans-serif", letterSpacing: "0.13em" }}
           >
             {scripture}
           </motion.p>
         )}
-
-        <motion.div
-          custom={showLogo ? 6 : 5}
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          className="mt-10 grid gap-3 sm:mt-12 sm:grid-cols-3"
-        >
-          {[
-            "Sports ministry and discipleship",
-            "Family support and outreach",
-            "Leadership rooted in faith",
-          ].map((item) => (
-            <div
-              key={item}
-              className="rounded-[1.4rem] border border-white/12 bg-white/7 px-4 py-3.5 backdrop-blur-sm"
-            >
-              <p
-                className="text-[0.7rem] uppercase text-white/74 sm:text-xs"
-                style={{
-                  fontFamily: "var(--font-inter), Arial, sans-serif",
-                  letterSpacing: "0.14em",
-                }}
-              >
-                {item}
-              </p>
-            </div>
-          ))}
-        </motion.div>
       </div>
 
       {/* Bottom fade to content */}

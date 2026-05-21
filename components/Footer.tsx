@@ -117,11 +117,16 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="font-ui text-xs text-white/40">
-            © 2026 CP3 Family Legacy Foundation · cp3legacyfoundation.com
+            © 2026 CP3 Family Legacy Foundation
           </p>
           <p className="font-ui text-xs text-white/40">
             Built by{" "}
-            <a href="mailto:nako@nawebservices.com" className="hover:text-gold-light transition-colors">
+            <a
+              href="https://nawebservices.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gold-light transition-colors"
+            >
               NA Web Services
             </a>
           </p>

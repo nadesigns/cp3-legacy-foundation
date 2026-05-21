@@ -27,7 +27,7 @@ export default function EventCard({ event, index = 0 }: EventCardProps) {
       <div className="relative h-52 overflow-hidden">
         {event.slug === "baseball-camp" ? (
           <Image
-            src="/images/baseball-camp-flyer.png"
+            src="/images/NewCP3Flyer.PNG"
             alt="1Died4All Baseball Camp"
             fill
             className="object-cover object-top group-hover:scale-105 transition-transform duration-500"

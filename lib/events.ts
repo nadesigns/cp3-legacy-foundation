@@ -28,6 +28,16 @@ export const events: Event[] = [
     tags: ["Baseball", "Faith", "Youth", "Free"],
   },
   {
+    title: "Paul J. Pittman Fatherhood Award",
+    date: "Father's Day · June 21, 2026",
+    location: "Hampton Roads, VA",
+    status: "upcoming",
+    slug: "fatherhood-award",
+    description:
+      "Annual recognition honoring men in the community who demonstrate exceptional commitment to fatherhood, family, and faith.",
+    tags: ["Award", "Fatherhood", "Community", "Faith"],
+  },
+  {
     title: "MVP Baseball Event",
     date: "July 2026 — TBA",
     status: "upcoming",
