@@ -237,6 +237,14 @@ export default function HomePage() {
                     <p><strong>Who it&apos;s for:</strong> Boys ages 10 to 16</p>
                   </div>
                   <div className="mt-6 flex flex-col gap-3 sm:flex-row xl:flex-col">
+                    <button
+                      type="button"
+                      onClick={() => setRegistrationPopupOpen(true)}
+                      className="inline-flex items-center justify-center rounded-full bg-gold px-5 py-3 text-center text-sm font-bold uppercase text-navy transition-colors hover:bg-gold-light sm:px-6"
+                      style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.08em" }}
+                    >
+                      Sign Up Now
+                    </button>
                     <a
                       href="/baseball-camp-registration.pdf"
                       target="_blank"
@@ -265,40 +273,6 @@ export default function HomePage() {
               transition={{ duration: 0.45, delay: 0.05 }}
               className="rounded-[2rem] border border-navy/10 bg-cream/60 px-2 py-2 shadow-[0_24px_60px_rgba(13,27,62,0.08)] sm:px-5 sm:py-5"
             >
-              <div className="flex items-center justify-end px-1 py-2 sm:justify-end">
-                <button
-                  type="button"
-                  onClick={() => setRegistrationPopupOpen(true)}
-                  className="inline-flex items-center gap-2 rounded-full border border-navy/12 bg-navy px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gold hover:text-navy"
-                  aria-label="Open registration form in popup"
-                >
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 3H5a2 2 0 00-2 2v3m16 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M5 16v3a2 2 0 002 2h3" />
-                  </svg>
-                  <span style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>Open popup</span>
-                </button>
-              </div>
-              <div className="sm:hidden">
-                <div className="rounded-[1.7rem] bg-white px-5 py-6 text-center shadow-[0_18px_45px_rgba(13,27,62,0.08)]">
-                  <p
-                    className="mb-2 text-[0.68rem] uppercase tracking-[0.28em] text-gold"
-                    style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
-                  >
-                    Mobile Signup
-                  </p>
-                  <p className="mx-auto mb-5 max-w-xs text-sm leading-relaxed text-navy/72" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
-                    Open the camp registration form in a focused popup for a cleaner mobile signup flow.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setRegistrationPopupOpen(true)}
-                    className="inline-flex w-full items-center justify-center rounded-full bg-gold px-5 py-3 text-sm font-bold uppercase text-navy transition-colors hover:bg-gold-light"
-                    style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.08em" }}
-                  >
-                    Sign Up Now
-                  </button>
-                </div>
-              </div>
               <div className="hidden sm:block">
                 <RegistrationForm />
               </div>
@@ -313,15 +287,15 @@ export default function HomePage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[70] bg-navy/70 backdrop-blur-sm"
+            className="fixed inset-0 z-[70] overflow-y-auto bg-navy/70 backdrop-blur-sm"
           >
-            <div className="flex min-h-full items-start justify-center overflow-y-auto px-3 py-8 sm:px-6 sm:py-12">
+            <div className="flex min-h-full items-start justify-center px-3 py-8 sm:px-6 sm:py-12">
               <motion.div
                 initial={{ opacity: 0, y: 28, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 24, scale: 0.98 }}
                 transition={{ duration: 0.22, ease: "easeOut" }}
-                className="relative w-full max-w-5xl rounded-[2rem] border border-white/10 bg-cream shadow-[0_30px_90px_rgba(13,27,62,0.28)]"
+                className="relative max-h-[calc(100vh-2rem)] w-full max-w-5xl overflow-y-auto rounded-[2rem] border border-white/10 bg-cream shadow-[0_30px_90px_rgba(13,27,62,0.28)] sm:max-h-[calc(100vh-4rem)]"
               >
                 <div className="sticky top-0 z-10 flex items-center justify-between rounded-t-[2rem] border-b border-navy/10 bg-cream/95 px-5 py-4 backdrop-blur">
                   <div>
@@ -331,7 +305,10 @@ export default function HomePage() {
                     >
                       Camp Registration
                     </p>
-                    <p className="text-sm text-navy/72" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
+                    <p
+                      className="text-sm font-semibold text-navy"
+                      style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
+                    >
                       Sign Up for the 1Died4All Baseball Camp
                     </p>
                   </div>
