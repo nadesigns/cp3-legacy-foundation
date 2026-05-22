@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
+const WEB3FORMS_ACCESS_KEY = "74e796bd-b826-4813-b4d3-6ba67f87d553";
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -9,24 +11,24 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const recipient = process.env.CONTACT_NOTIFICATION_EMAIL;
-
-    if (process.env.RESEND_API_KEY && recipient) {
-      const { Resend } = await import("resend");
-      const resend = new Resend(process.env.RESEND_API_KEY);
-
-      await resend.emails.send({
-        from: "CP3 Foundation <noreply@cp3legacyfoundation.com>",
-        to: [recipient],
-        replyTo: email,
+    const web3FormsResponse = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_ACCESS_KEY,
         subject: `CP3 Contact: ${subject || "New message"}`,
-        html: `
-          <p><strong>From:</strong> ${name} (${email})</p>
-          <p><strong>Subject:</strong> ${subject}</p>
-          <hr />
-          <p>${message.replace(/\n/g, "<br/>")}</p>
-        `,
-      });
+        from_name: "CP3 Family Legacy Foundation Website",
+        name,
+        email,
+        message,
+        replyto: email,
+      }),
+    });
+
+    const result = await web3FormsResponse.json();
+
+    if (!web3FormsResponse.ok || !result.success) {
+      throw new Error(result.message || `Web3Forms failed with status ${web3FormsResponse.status}`);
     }
 
     return NextResponse.json({ success: true });
