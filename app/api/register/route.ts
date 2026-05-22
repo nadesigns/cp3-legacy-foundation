@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { baseballCampRegistrationSchema } from "@/lib/baseballCampRegistration";
 
 const CAMP_APPS_SCRIPT_WEBHOOK_URL =
-  "https://script.google.com/macros/s/AKfycbwQV_OUtE7rrha4Gp3IVNPzNituHNEFDckgYklYzemfBop50VGLKO2iRCWAEV2i7c-k/exec";
+  "https://script.google.com/macros/s/AKfycbzDXcuAQNH_zwuk2Xnr87V00vhz1egA6shMv6fzPk5hyzI_0uVTVNL9KfmtPcGMApCs/exec";
 
 export async function POST(req: NextRequest) {
   try {
