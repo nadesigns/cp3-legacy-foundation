@@ -122,11 +122,16 @@ export default function Navbar() {
                     <a
                       href={link.href}
                       onClick={closeMenu}
-                      className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/4 px-4 py-3.5 text-base text-white/88 transition-colors hover:bg-white/8"
+                      className="group flex items-center justify-between rounded-2xl border border-white/10 bg-white/4 px-4 py-3.5 text-base text-white/88 transition-all duration-200 hover:border-gold/40 hover:bg-white/8"
                       style={{ fontFamily: bodyFont }}
                     >
                       <span>{link.label}</span>
-                      <span className="text-gold-light">↗</span>
+                      <span className="flex items-center gap-2 text-gold-light/80 transition-transform duration-200 group-hover:translate-x-1">
+                        <span className="h-px w-5 bg-gold/70" />
+                        <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m9 6 6 6-6 6" />
+                        </svg>
+                      </span>
                     </a>
                   </li>
                 ))}

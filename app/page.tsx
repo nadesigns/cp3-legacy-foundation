@@ -265,7 +265,7 @@ export default function HomePage() {
               transition={{ duration: 0.45, delay: 0.05 }}
               className="rounded-[2rem] border border-navy/10 bg-cream/60 px-2 py-2 shadow-[0_24px_60px_rgba(13,27,62,0.08)] sm:px-5 sm:py-5"
             >
-              <div className="flex items-center justify-end px-1 py-2">
+              <div className="flex items-center justify-end px-1 py-2 sm:justify-end">
                 <button
                   type="button"
                   onClick={() => setRegistrationPopupOpen(true)}
@@ -278,7 +278,30 @@ export default function HomePage() {
                   <span style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>Open popup</span>
                 </button>
               </div>
-              <RegistrationForm />
+              <div className="sm:hidden">
+                <div className="rounded-[1.7rem] bg-white px-5 py-6 text-center shadow-[0_18px_45px_rgba(13,27,62,0.08)]">
+                  <p
+                    className="mb-2 text-[0.68rem] uppercase tracking-[0.28em] text-gold"
+                    style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
+                  >
+                    Mobile Signup
+                  </p>
+                  <p className="mx-auto mb-5 max-w-xs text-sm leading-relaxed text-navy/72" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
+                    Open the camp registration form in a focused popup for a cleaner mobile signup flow.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setRegistrationPopupOpen(true)}
+                    className="inline-flex w-full items-center justify-center rounded-full bg-gold px-5 py-3 text-sm font-bold uppercase text-navy transition-colors hover:bg-gold-light"
+                    style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.08em" }}
+                  >
+                    Sign Up Now
+                  </button>
+                </div>
+              </div>
+              <div className="hidden sm:block">
+                <RegistrationForm />
+              </div>
             </motion.div>
           </div>
         </div>
