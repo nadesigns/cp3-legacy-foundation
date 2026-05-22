@@ -9,13 +9,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    if (process.env.RESEND_API_KEY) {
+    const recipient = process.env.CONTACT_NOTIFICATION_EMAIL;
+
+    if (process.env.RESEND_API_KEY && recipient) {
       const { Resend } = await import("resend");
       const resend = new Resend(process.env.RESEND_API_KEY);
 
       await resend.emails.send({
         from: "CP3 Foundation <noreply@cp3legacyfoundation.com>",
-        to: ["team@dmrmedia.org"],
+        to: [recipient],
         replyTo: email,
         subject: `CP3 Contact: ${subject || "New message"}`,
         html: `

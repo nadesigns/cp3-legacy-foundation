@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { baseballCampRegistrationSchema } from "@/lib/baseballCampRegistration";
 
+const ZAPIER_CAMP_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/27698242/4owek6n/";
+
 function escapeHtml(value: string) {
   return value
     .replaceAll("&", "&amp;")
@@ -21,7 +23,23 @@ export async function POST(req: NextRequest) {
 
     const data = parsed.data;
 
-    if (process.env.RESEND_API_KEY) {
+    const webhookResponse = await fetch(ZAPIER_CAMP_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        submittedAt: new Date().toISOString(),
+        type: "camp_registration",
+        ...data,
+      }),
+    });
+
+    if (!webhookResponse.ok) {
+      throw new Error(`Zapier webhook failed with status ${webhookResponse.status}`);
+    }
+
+    const recipient = process.env.CAMP_REGISTRATION_EMAIL;
+
+    if (process.env.RESEND_API_KEY && recipient) {
       const { Resend } = await import("resend");
       const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -54,7 +72,7 @@ export async function POST(req: NextRequest) {
 
       await resend.emails.send({
         from: "CP3 Foundation <noreply@cp3legacyfoundation.com>",
-        to: ["team@dmrmedia.org"],
+        to: [recipient],
         replyTo: data.email,
         subject: `Baseball Camp Registration: ${data.firstName} ${data.lastName}`,
         html: `
