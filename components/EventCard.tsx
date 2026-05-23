@@ -10,7 +10,27 @@ interface EventCardProps {
   index?: number;
 }
 
+const titleCardStyles: Record<string, { kicker: string; accent: string; gradient: string }> = {
+  "fatherhood-award": {
+    kicker: "Legacy Honor",
+    accent: "FATHERHOOD",
+    gradient: "from-[#0d1b3e] via-[#1d315f] to-[#b88a2d]",
+  },
+  "mvp-baseball": {
+    kicker: "Summer Event",
+    accent: "BASEBALL",
+    gradient: "from-[#10243f] via-[#17466a] to-[#d29b2d]",
+  },
+  "kenya-mission": {
+    kicker: "Mission Trip",
+    accent: "OUTREACH",
+    gradient: "from-[#0d1b3e] via-[#214636] to-[#c48b2c]",
+  },
+};
+
 export default function EventCard({ event, index = 0 }: EventCardProps) {
+  const titleCard = titleCardStyles[event.slug];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -32,6 +52,23 @@ export default function EventCard({ event, index = 0 }: EventCardProps) {
             fill
             className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
           />
+        ) : titleCard ? (
+          <div className={`relative flex h-full items-end bg-gradient-to-br ${titleCard.gradient} p-5`}>
+            <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full border border-white/15" />
+            <div className="absolute -bottom-14 -left-10 h-40 w-40 rounded-full bg-gold/20 blur-2xl transition-transform duration-500 group-hover:scale-125" />
+            <div className="absolute inset-x-0 top-9 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent" />
+            <div className="relative">
+              <p className="mb-2 font-ui text-[0.64rem] font-semibold uppercase tracking-[0.34em] text-gold-light/90">
+                {titleCard.kicker}
+              </p>
+              <p className="mb-3 font-heading text-[0.68rem] uppercase tracking-[0.28em] text-white/45">
+                {titleCard.accent}
+              </p>
+              <h3 className="max-w-[13rem] font-heading text-3xl uppercase leading-[0.95] tracking-[0.04em] text-white drop-shadow-sm transition-colors duration-300 group-hover:text-gold-light">
+                {event.title}
+              </h3>
+            </div>
+          </div>
         ) : (
           <div className="h-full bg-gradient-to-br from-navy to-navy-mid" />
         )}

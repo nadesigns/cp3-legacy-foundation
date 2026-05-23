@@ -33,6 +33,47 @@ const storyPillars = [
   },
 ];
 
+const aboutCards = [
+  {
+    name: "Cam Pittman",
+    title: "Board Director",
+    phone: "757-535-9539",
+    image: "/images/IMG_2501.jpeg",
+    role: "Camp registration and general inquiries.",
+  },
+  {
+    name: "Ben Stanley",
+    title: "Director of Operations, 1Died4All",
+    phone: "443-630-3695",
+    image: "/images/IMG_2631.jpeg",
+    role: "Operations and partnerships.",
+  },
+  {
+    name: "Paul Pittman",
+    title: "Founder and Board President",
+    phone: "757-217-5427",
+    role: "Foundation leadership.",
+  },
+  {
+    name: 'Pastor Ronnie "Mack" McAdoo',
+    title: "Board Member · Spiritual Advisor",
+    image: "/images/IMG_2498.jpeg",
+    role: "Provides strategic guidance, supports organizational governance, and contributes to board initiatives. Founder and CEO of 1Died4All Sports Ministry.",
+  },
+  {
+    name: "Janet McAdoo",
+    title: "Board Member · Founder and CEO",
+    image: "/images/IMG_2499.jpeg",
+    role: "Dedicates her life to faith, family, and ministry through 1Died4All alongside her husband, Mack.",
+  },
+  {
+    name: "Mannie Upton",
+    title: "Board Member",
+    image: "/images/IMG_2500.jpeg",
+    role: "Father of former Major League Baseball All-Stars BJ and Justin Upton, the only two brothers in professional sports drafted first and second overall. NSU baseball and football alumni standout athlete.",
+  },
+];
+
 const H2 = ({ children, light = false }: { children: React.ReactNode; light?: boolean }) => (
   <h2
     className={`mb-4 uppercase leading-none ${light ? "text-white" : "text-navy"}`}
@@ -362,6 +403,90 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section id="about" className="bg-white py-18 sm:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-10 text-center sm:mb-14"
+          >
+            <Eyebrow>About Us</Eyebrow>
+            <H2>Leadership and Ministry Partners</H2>
+            <div className="mx-auto mb-6 h-1 w-16 bg-gold" />
+            <p
+              className="mx-auto max-w-3xl text-base leading-relaxed text-gray-mid"
+              style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
+            >
+              Meet the people helping guide CP3 Family Legacy Foundation through sports ministry, mentorship, family outreach, and community partnerships.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {aboutCards.map((person, index) => (
+              <motion.div
+                key={person.name}
+                custom={index}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="rounded-[1.8rem] bg-navy p-6 text-center shadow-[0_24px_54px_rgba(13,27,62,0.14)] sm:p-8"
+              >
+                <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-gold/40 bg-gold/15 shadow-[0_12px_28px_rgba(0,0,0,0.18)]">
+                  {person.image ? (
+                    <Image
+                      src={person.image}
+                      alt={person.name}
+                      width={80}
+                      height={80}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <span
+                      className="text-lg font-bold text-gold"
+                      style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif" }}
+                    >
+                      {person.name
+                        .split(" ")
+                        .slice(0, 2)
+                        .map((part) => part[0])
+                        .join("")}
+                    </span>
+                  )}
+                </div>
+                <h3
+                  className="mb-1 text-lg uppercase text-white"
+                  style={{
+                    fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif",
+                    fontWeight: 600,
+                    letterSpacing: "0.06em",
+                  }}
+                >
+                  {person.name}
+                </h3>
+                <p className="mb-1 text-xs font-medium text-gold" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
+                  {person.title}
+                </p>
+                <p className="mb-5 text-xs leading-relaxed text-white/50" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
+                  {person.role}
+                </p>
+                {person.phone && (
+                  <a
+                    href={`tel:${person.phone}`}
+                    className="inline-block rounded-full bg-gold px-5 py-2 text-sm font-bold text-navy transition-colors hover:bg-gold-light"
+                    style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.05em" }}
+                  >
+                    {person.phone}
+                  </a>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="get-involved" className="bg-navy py-18 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -444,60 +569,6 @@ export default function HomePage() {
             <div className="mx-auto h-1 w-16 bg-gold" />
           </motion.div>
 
-          <div className="mb-14 grid grid-cols-1 gap-6 md:grid-cols-3">
-            {[
-              { name: "Cam Pittman", title: "Board Director", phone: "757-535-9539", role: "Camp registration and general inquiries" },
-              { name: "Ben Stanley", title: "Director of Operations, 1Died4All", phone: "443-630-3695", role: "Operations and partnerships" },
-              { name: "Paul Pittman", title: "Founder and Board President", phone: "757-217-5427", role: "Foundation leadership" },
-            ].map((contact, index) => (
-              <motion.div
-                key={contact.name}
-                custom={index}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              className="rounded-[1.8rem] bg-navy p-6 text-center shadow-[0_24px_54px_rgba(13,27,62,0.14)] sm:p-8"
-              >
-                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-gold/30 bg-gold/15">
-                  <span
-                    className="text-lg font-bold text-gold"
-                    style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif" }}
-                  >
-                    {contact.name
-                      .split(" ")
-                      .slice(0, 2)
-                      .map((part) => part[0])
-                      .join("")}
-                  </span>
-                </div>
-                <h3
-                  className="mb-1 text-lg uppercase text-white"
-                  style={{
-                    fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif",
-                    fontWeight: 600,
-                    letterSpacing: "0.06em",
-                  }}
-                >
-                  {contact.name}
-                </h3>
-                <p className="mb-1 text-xs font-medium text-gold" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
-                  {contact.title}
-                </p>
-                <p className="mb-5 text-xs text-white/50" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
-                  {contact.role}
-                </p>
-                <a
-                  href={`tel:${contact.phone}`}
-                  className="inline-block rounded-full bg-gold px-5 py-2 text-sm font-bold text-navy transition-colors hover:bg-gold-light"
-                  style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.05em" }}
-                >
-                  {contact.phone}
-                </a>
-              </motion.div>
-            ))}
-          </div>
-
           <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-10">
             <div className="flex flex-col justify-center lg:col-span-2">
               <h3
@@ -514,23 +585,11 @@ export default function HomePage() {
               </h3>
               <div className="mb-5 h-[3px] w-10 bg-gold" />
               <p className="mb-4 text-sm text-gray-mid" style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}>
-                Find the latest stories, event updates, and field highlights from us on Facebook and Instagram.
+                Find the latest stories, event updates, and field highlights from us on Instagram.
               </p>
               <div className="flex flex-wrap gap-4">
                 <a
-                  href="https://www.facebook.com/1Died4All"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 rounded-full bg-navy px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-navy-mid"
-                  style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
-                >
-                  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                  </svg>
-                  Facebook
-                </a>
-                <a
-                  href="https://www.instagram.com/1Died4All"
+                  href="https://www.instagram.com/campittman.1"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 rounded-full bg-navy px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-navy-mid"

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import type { TeamMember } from "@/lib/team";
 
@@ -17,13 +18,22 @@ export default function LeaderCard({ member, index = 0 }: LeaderCardProps) {
       transition={{ delay: index * 0.08, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
       className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 p-8 flex flex-col items-center text-center"
     >
-      {/* Avatar placeholder */}
-      <div className="w-24 h-24 rounded-full bg-navy-mid flex items-center justify-center mb-5 text-gold font-heading text-2xl font-bold shrink-0">
-        {member.name
-          .split(" ")
-          .slice(0, 2)
-          .map((n) => n[0])
-          .join("")}
+      <div className="w-24 h-24 rounded-full bg-navy-mid flex items-center justify-center mb-5 text-gold font-heading text-2xl font-bold shrink-0 overflow-hidden">
+        {member.image ? (
+          <Image
+            src={member.image}
+            alt={member.name}
+            width={96}
+            height={96}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          member.name
+            .split(" ")
+            .slice(0, 2)
+            .map((n) => n[0])
+            .join("")
+        )}
       </div>
 
       <h3 className="font-heading text-xl text-navy uppercase tracking-wide mb-1">

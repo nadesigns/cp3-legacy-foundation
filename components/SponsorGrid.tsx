@@ -31,17 +31,8 @@ export default function SponsorGrid() {
               whileHover={{ scale: 1.05 }}
               className="group flex flex-col items-center justify-center p-6 bg-white rounded-xl border border-gray-light hover:border-gold hover:shadow-lg transition-all duration-300 min-h-[120px]"
             >
-              {/* Logo placeholder — greyscale on default, color on hover */}
-              <div className="w-12 h-12 rounded-full bg-gray-light group-hover:bg-navy transition-colors duration-300 flex items-center justify-center mb-3">
-                <span className="font-heading font-bold text-gray-mid group-hover:text-gold transition-colors duration-300 text-sm">
-                  {sponsor.name
-                    .split(" ")
-                    .slice(0, 2)
-                    .map((w) => w[0])
-                    .join("")}
-                </span>
-              </div>
-              <p className="font-ui text-xs text-center text-gray-mid group-hover:text-navy transition-colors duration-300 leading-snug">
+              <div className="mb-4 h-[3px] w-10 bg-gold transition-all duration-300 group-hover:w-14" />
+              <p className="font-heading text-sm uppercase tracking-[0.08em] text-center text-navy group-hover:text-gold transition-colors duration-300 leading-snug">
                 {sponsor.name}
               </p>
               {sponsor.contact && (
