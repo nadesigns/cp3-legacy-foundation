@@ -72,6 +72,30 @@ const aboutCards = [
     image: "/images/IMG_2500.jpeg",
     role: "Father of former Major League Baseball All-Stars BJ and Justin Upton, the only two brothers in professional sports drafted first and second overall. NSU baseball and football alumni standout athlete.",
   },
+  {
+    name: "Lee Banks",
+    title: "Board Director",
+    role: "Legendary Tidewater Phillies and Grassfield High School coach Lee Banks has been a respected name in travel baseball for 25+ years, helping develop former MLB stars like David Wright, B. J. Upton, and Justin Upton while impacting generations of players across Virginia. His most recent players include Carson Demartini (VT, Phillies), Ethan Anderson (UVA, Orioles), Fenwick Trimble (JMU, Marlins), Cam Pittman (VT), and more.",
+  },
+];
+
+const partnerWebsites = [
+  {
+    title: "MVP Baseball Foundation",
+    subtitle: "Baseball foundation partner",
+    description:
+      "Follow the MVP Baseball Foundation for event details, baseball development opportunities, and foundation updates.",
+    href: "https://www.viableprospects.org/blank",
+    cta: "Visit MVP Baseball",
+  },
+  {
+    title: "1Died4All",
+    subtitle: "Sports ministry partner",
+    description:
+      "Learn more about the faith-based sports ministry connected to CP3 camps, outreach events, and athlete mentorship.",
+    href: "https://www.1died4all.com/",
+    cta: "Visit 1Died4All",
+  },
 ];
 
 const H2 = ({ children, light = false }: { children: React.ReactNode; light?: boolean }) => (
@@ -399,6 +423,70 @@ export default function HomePage() {
             >
               Contact the team for event details →
             </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="partner-sites" className="bg-white py-18 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-10 text-center sm:mb-12"
+          >
+            <Eyebrow>Connected Work</Eyebrow>
+            <H2>Partners</H2>
+            <div className="mx-auto mb-6 h-1 w-16 bg-gold" />
+            <p
+              className="mx-auto max-w-3xl text-base leading-relaxed text-gray-mid"
+              style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
+            >
+              Visit the partner organizations helping support baseball development, sports ministry, and faith-centered outreach.
+            </p>
+          </motion.div>
+
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
+            {partnerWebsites.map((site, index) => (
+              <motion.a
+                key={site.title}
+                href={site.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                custom={index}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="group flex h-full flex-col rounded-[1.8rem] border border-navy/10 bg-cream p-6 shadow-[0_20px_48px_rgba(13,27,62,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-gold/50 sm:p-8"
+              >
+                <p
+                  className="mb-3 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-gold"
+                  style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
+                >
+                  {site.subtitle}
+                </p>
+                <h3
+                  className="mb-3 text-2xl uppercase text-navy transition-colors group-hover:text-gold"
+                  style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.06em" }}
+                >
+                  {site.title}
+                </h3>
+                <p
+                  className="mb-6 flex-1 text-sm leading-relaxed text-navy/68"
+                  style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
+                >
+                  {site.description}
+                </p>
+                <span
+                  className="inline-flex items-center text-xs font-semibold uppercase tracking-[0.2em] text-navy transition-colors group-hover:text-gold"
+                  style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
+                >
+                  {site.cta} →
+                </span>
+              </motion.a>
+            ))}
           </div>
         </div>
       </section>

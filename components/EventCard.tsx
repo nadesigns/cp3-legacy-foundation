@@ -109,12 +109,23 @@ export default function EventCard({ event, index = 0 }: EventCardProps) {
 
         {/* CTA */}
         {event.status !== "coming-soon" && (
-          <Link
-            href={event.registration ? "#camp-registration" : "#contact"}
-            className="inline-block w-full text-center py-2.5 bg-gold hover:bg-gold-light text-navy font-heading text-sm font-bold uppercase tracking-wider rounded transition-colors duration-200"
-          >
-            {event.registration ? "Register Now" : "Learn More"}
-          </Link>
+          event.externalUrl ? (
+            <a
+              href={event.externalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block w-full text-center py-2.5 bg-gold hover:bg-gold-light text-navy font-heading text-sm font-bold uppercase tracking-wider rounded transition-colors duration-200"
+            >
+              {event.externalCta ?? "Learn More"}
+            </a>
+          ) : (
+            <Link
+              href={event.registration ? "#camp-registration" : "#contact"}
+              className="inline-block w-full text-center py-2.5 bg-gold hover:bg-gold-light text-navy font-heading text-sm font-bold uppercase tracking-wider rounded transition-colors duration-200"
+            >
+              {event.registration ? "Register Now" : "Learn More"}
+            </Link>
+          )
         )}
       </div>
     </motion.div>

@@ -58,4 +58,10 @@ export const team: TeamMember[] = [
     slug: "mannie-upton",
     image: "/images/IMG_2500.jpeg",
   },
+  {
+    name: "Lee Banks",
+    title: "Board Director",
+    bio: "Legendary Tidewater Phillies and Grassfield High School coach Lee Banks has been a respected name in travel baseball for 25+ years, helping develop former MLB stars like David Wright, B. J. Upton, and Justin Upton while impacting generations of players across Virginia. His most recent players include Carson Demartini (VT, Phillies), Ethan Anderson (UVA, Orioles), Fenwick Trimble (JMU, Marlins), Cam Pittman (VT), and more.",
+    slug: "lee-banks",
+  },
 ];

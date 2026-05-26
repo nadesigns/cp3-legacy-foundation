@@ -7,6 +7,8 @@ export interface Event {
   status: "upcoming" | "coming-soon";
   free?: boolean;
   registration?: boolean;
+  externalUrl?: string;
+  externalCta?: string;
   slug: string;
   description: string;
   tags?: string[];
@@ -42,7 +44,11 @@ export const events: Event[] = [
     date: "July 2026 — TBA",
     status: "upcoming",
     slug: "mvp-baseball",
-    description: "Details coming soon.",
+    description:
+      "MVP Baseball Foundation event details and updates are available through the foundation website.",
+    externalUrl: "https://www.viableprospects.org/blank",
+    externalCta: "Visit MVP Baseball",
+    tags: ["Baseball", "Foundation", "Youth"],
   },
   {
     title: "Kenya Mission Trip",
