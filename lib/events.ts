@@ -23,7 +23,7 @@ export const events: Event[] = [
     address: "3301 Nansemond Parkway, Suffolk, VA 23434",
     status: "upcoming",
     free: true,
-    registration: true,
+    registration: false,
     slug: "baseball-camp",
     description:
       "Faith-based baseball camp for boys ages 10–16. All skill levels welcome. Free admission, lunch provided.",

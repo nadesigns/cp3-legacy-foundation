@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import HeroSection from "@/components/HeroSection";
 import EventCard from "@/components/EventCard";
 import SponsorGrid from "@/components/SponsorGrid";
-import RegistrationForm from "@/components/RegistrationForm";
 import { events } from "@/lib/events";
 
 const fadeUp: Variants = {
@@ -128,7 +127,6 @@ export default function HomePage() {
   const campMapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(campAddress)}`;
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [contactStatus, setContactStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
-  const [registrationPopupOpen, setRegistrationPopupOpen] = useState(false);
 
   const handleContact = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -161,7 +159,7 @@ export default function HomePage() {
         <HeroSection
           heading="Connecting People, Potential & Purpose in Families"
           subheading="A faith-based foundation serving Hampton Roads and Suffolk, Virginia through sports ministry, mentorship, family support, and gospel-centered community outreach."
-          primaryCta={{ label: "Camp Registration", href: "#camp-registration" }}
+          primaryCta={{ label: "Camp Details", href: "#camp-registration" }}
           secondaryCta={{ label: "Explore the Mission", href: "#story" }}
           bgVideo
           showLogo
@@ -243,13 +241,13 @@ export default function HomePage() {
             className="mb-10 text-center sm:mb-14"
           >
             <Eyebrow>Camp Registration</Eyebrow>
-            <H2>Sign Up for the 1Died4All Baseball Camp</H2>
+            <H2>1Died4All Baseball Camp Registration Is Closed</H2>
             <div className="mx-auto mb-5 h-1 w-16 bg-gold" />
             <p
               className="mx-auto max-w-3xl text-base leading-relaxed text-gray-mid"
               style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
             >
-              Complete the registration below or use the printable flyer PDF. The online form follows the same registration questions shown on the official camp form.
+              Online and printable registration are no longer accepting submissions. For questions about an existing registration, call the camp team.
             </p>
           </motion.div>
 
@@ -302,23 +300,12 @@ export default function HomePage() {
                     <p><strong>Who it&apos;s for:</strong> Boys ages 10 to 16</p>
                   </div>
                   <div className="mt-6 flex flex-col gap-3 sm:flex-row xl:flex-col">
-                    <button
-                      type="button"
-                      onClick={() => setRegistrationPopupOpen(true)}
-                      className="inline-flex items-center justify-center rounded-full bg-gold px-5 py-3 text-center text-sm font-bold uppercase text-navy transition-colors hover:bg-gold-light sm:px-6"
+                    <div
+                      className="inline-flex items-center justify-center rounded-full bg-navy/10 px-5 py-3 text-center text-sm font-bold uppercase text-navy/60 sm:px-6"
                       style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.08em" }}
                     >
-                      Sign Up Now
-                    </button>
-                    <a
-                      href="/baseball-camp-registration.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center rounded-full bg-navy px-5 py-3 text-center text-sm font-bold uppercase text-white transition-colors hover:bg-navy-mid sm:px-6"
-                      style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.08em" }}
-                    >
-                      Open Printable PDF
-                    </a>
+                      Registration Closed
+                    </div>
                     <a
                       href="tel:757-535-9539"
                       className="inline-flex items-center justify-center rounded-full border border-navy/15 px-5 py-3 text-center text-sm font-bold uppercase text-navy transition-colors hover:border-gold hover:text-gold sm:px-6"
@@ -336,64 +323,40 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: 0.05 }}
-              className="rounded-[2rem] border border-navy/10 bg-cream/60 px-2 py-2 shadow-[0_24px_60px_rgba(13,27,62,0.08)] sm:px-5 sm:py-5"
+              className="rounded-[2rem] border border-navy/10 bg-cream/60 p-6 shadow-[0_24px_60px_rgba(13,27,62,0.08)] sm:p-8"
             >
-              <div className="hidden sm:block">
-                <RegistrationForm />
+              <div className="flex min-h-80 flex-col justify-center text-center">
+                <p
+                  className="mb-3 text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-gold"
+                  style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
+                >
+                  Registration Status
+                </p>
+                <h3
+                  className="mb-4 text-3xl uppercase text-navy sm:text-4xl"
+                  style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.06em" }}
+                >
+                  Registration Closed
+                </h3>
+                <p
+                  className="mx-auto mb-6 max-w-xl text-base leading-relaxed text-navy/68"
+                  style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
+                >
+                  We are no longer accepting new registrations for the June 16-18, 2026 baseball camp.
+                  Please contact the camp team if you need help with an existing registration.
+                </p>
+                <a
+                  href="tel:757-535-9539"
+                  className="mx-auto inline-flex items-center justify-center rounded-full bg-gold px-6 py-3 text-center text-sm font-bold uppercase text-navy transition-colors hover:bg-gold-light"
+                  style={{ fontFamily: "var(--font-oswald), 'Arial Narrow', Arial, sans-serif", letterSpacing: "0.08em" }}
+                >
+                  Call 757-535-9539
+                </a>
               </div>
             </motion.div>
           </div>
         </div>
       </section>
-
-      <AnimatePresence>
-        {registrationPopupOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[70] overflow-y-auto bg-navy/70 backdrop-blur-sm"
-          >
-            <div className="flex min-h-full items-start justify-center px-3 py-8 sm:px-6 sm:py-12">
-              <motion.div
-                initial={{ opacity: 0, y: 28, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 24, scale: 0.98 }}
-                transition={{ duration: 0.22, ease: "easeOut" }}
-                className="relative max-h-[calc(100vh-2rem)] w-full max-w-5xl overflow-y-auto rounded-[2rem] border border-white/10 bg-cream shadow-[0_30px_90px_rgba(13,27,62,0.28)] sm:max-h-[calc(100vh-4rem)]"
-              >
-                <div className="sticky top-0 z-10 flex items-center justify-between rounded-t-[2rem] border-b border-navy/10 bg-cream/95 px-5 py-4 backdrop-blur">
-                  <div>
-                    <p
-                      className="text-[0.68rem] uppercase tracking-[0.28em] text-gold"
-                      style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
-                    >
-                      Camp Registration
-                    </p>
-                    <p
-                      className="text-sm font-semibold text-navy"
-                      style={{ fontFamily: "var(--font-inter), Arial, sans-serif" }}
-                    >
-                      Sign Up for the 1Died4All Baseball Camp
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setRegistrationPopupOpen(false)}
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-navy/12 bg-white text-navy transition-colors hover:bg-navy hover:text-white"
-                    aria-label="Close registration popup"
-                  >
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18 18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-                <RegistrationForm />
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       <section id="events" className="bg-cream py-18 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
